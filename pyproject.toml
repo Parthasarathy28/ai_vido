@@ -1,0 +1,9 @@
+[project]
+name = "ai-video-studio"
+version = "0.1.0"
+description = "AI video generation pipeline with a FastAPI dashboard."
+requires-python = ">=3.10"
+
+[tool.vercel]
+framework = "fastapi"
+entrypoint = "ai_video_studio/web/app.py"
