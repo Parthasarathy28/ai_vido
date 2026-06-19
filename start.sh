@@ -29,10 +29,12 @@ if [ -f .env ]; then
 fi
 
 # 4. Launch detached, log to server.log, record the PID.
-echo "Starting AI Video Studio on port $PORT…"
-setsid "$VENV/bin/python" -m ai_video_studio serve --port "$PORT" \
+echo "Starting AI Video Studio on port ${PORT}..."
+# nohup works on both macOS and Linux (setsid is Linux-only).
+nohup "$VENV/bin/python" -m ai_video_studio serve --port "$PORT" \
   > "$LOG" 2>&1 < /dev/null &
 echo $! > "$PIDFILE"
+disown $! 2>/dev/null || true
 
 # 5. Wait until it answers, then print the URLs.
 for _ in $(seq 1 30); do

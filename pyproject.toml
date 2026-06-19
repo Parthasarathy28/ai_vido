@@ -4,6 +4,22 @@ version = "0.1.0"
 description = "AI video generation pipeline with a FastAPI dashboard."
 requires-python = ">=3.10"
 
+# Vercel reads dependencies from here via `uv` — requirements.txt is IGNORED on
+# Vercel. Keep this list lean (web boot only) so the serverless bundle fits.
+# Heavy ML deps (anthropic, openai, piper-tts, faster-whisper, Pillow,
+# requests, google-api-*) are in requirements-pipeline.txt and only needed
+# for local video generation.
+dependencies = [
+    "fastapi>=0.110",
+    "pydantic>=2.5",
+    "PyYAML>=6.0",
+    "python-dotenv>=1.0",
+    "python-multipart>=0.0.9",
+    "rich>=13.0",
+    "typer>=0.12",
+    "uvicorn[standard]>=0.27",
+]
+
 [tool.vercel]
 framework = "fastapi"
 entrypoint = "ai_video_studio.web.app:app"
