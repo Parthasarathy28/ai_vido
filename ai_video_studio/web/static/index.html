@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Video Studio — turn any story into a video</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <!-- ambient gradient glows -->
+  <div class="glow glow-a"></div>
+  <div class="glow glow-b"></div>
+
+  <!-- nav -->
+  <nav class="nav">
+    <div class="logo">🎬 <span>AI Video Studio</span></div>
+    <div id="caps" class="caps"></div>
+    <a href="#studio" class="nav-cta">Open studio</a>
+  </nav>
+
+  <!-- hero -->
+  <header class="hero">
+    <div class="badge">⚡ Powered by Claude · 100% automated</div>
+    <h1>Turn any <span class="grad">story</span> into a<br />ready-to-post video.</h1>
+    <p class="lead">Type an idea or paste a full script. We write it, narrate it with an
+      AI voice, generate the visuals, add captions &amp; music, and render a finished
+      video — in <b>vertical</b> or <b>horizontal</b>. Built for faceless YouTube &amp; Reels.</p>
+    <div class="hero-cta">
+      <a href="#studio" class="btn-primary">✨ Create a video</a>
+      <a href="#library" class="btn-ghost">▶ See examples</a>
+    </div>
+    <div class="hero-stats">
+      <div><b>$0</b><span>per video</span></div>
+      <div><b>6</b><span>auto steps</span></div>
+      <div><b>9:16 &amp; 16:9</b><span>formats</span></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- studio / generate -->
+    <section id="studio" class="card studio">
+      <div class="card-head">
+        <h2>🎥 Studio</h2>
+        <p class="muted">Describe a story, or paste a Scene-by-Scene script.</p>
+      </div>
+
+      <textarea id="prompt" rows="5"
+        placeholder="Story idea (e.g. 'an astronaut finds a signal from a black hole')&#10;— OR — paste a full ### Scene 1 / Visual Prompt / Voiceover script..."></textarea>
+
+      <div class="controls">
+        <div class="field">
+          <span class="lbl">Language</span>
+          <div class="seg" id="langSeg"><!-- filled from /api/languages --></div>
+        </div>
+        <div class="field">
+          <span class="lbl">Style</span>
+          <div class="seg" id="styleSeg"><!-- filled from /api/styles --></div>
+        </div>
+        <div class="field">
+          <span class="lbl">Input mode</span>
+          <div class="seg" id="modeSeg">
+            <button data-v="auto" class="on">Auto</button>
+            <button data-v="idea">Story idea</button>
+            <button data-v="script">Detailed script</button>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl">Format</span>
+          <div class="seg" id="orientSeg">
+            <button data-v="horizontal" class="on">▭ 16:9</button>
+            <button data-v="vertical">▯ 9:16</button>
+          </div>
+        </div>
+      </div>
+      <p id="langHint" class="muted" style="font-size:12.5px;margin:8px 0 0"></p>
+
+      <div class="row">
+        <label class="check" id="uploadWrap" style="display:none">
+          <input type="checkbox" id="upload" /> Upload to YouTube when done
+        </label>
+        <button id="go" class="btn-primary big">✨ Generate video</button>
+      </div>
+
+      <!-- live progress -->
+      <div id="progress" class="progress" hidden>
+        <div class="bar"><div id="barFill" class="barFill"></div></div>
+        <div id="stages" class="stages"></div>
+        <div class="statusRow">
+          <div id="statusText" class="statusText"></div>
+          <button id="cancelBtn" class="btn-ghost small" hidden>⏹ Stop</button>
+        </div>
+        <pre id="logBox" class="logBox" hidden></pre>
+      </div>
+
+      <!-- result -->
+      <div id="result" class="result" hidden>
+        <video id="player" controls></video>
+        <div id="costBox" class="costBox" hidden></div>
+        <div class="resultActions">
+          <a id="download" class="btn-ghost" download>⬇ Download MP4</a>
+          <a id="ytLink" class="btn-ghost" target="_blank" hidden>▶ View on YouTube</a>
+        </div>
+      </div>
+
+      <div id="errorBox" class="error" hidden></div>
+    </section>
+
+    <!-- how it works -->
+    <section class="steps-row">
+      <div class="step-card"><div class="n">1</div><h3>Script</h3><p>Claude writes scene-by-scene narration &amp; visual prompts — or parses yours.</p></div>
+      <div class="step-card"><div class="n">2</div><h3>Voice</h3><p>Natural AI narration for every scene, free &amp; offline.</p></div>
+      <div class="step-card"><div class="n">3</div><h3>Visuals</h3><p>An image per scene with a cinematic Ken Burns motion.</p></div>
+      <div class="step-card"><div class="n">4</div><h3>Render</h3><p>Captions, music &amp; voice mixed into a finished MP4.</p></div>
+    </section>
+
+    <!-- library -->
+    <section id="library" class="card library">
+      <div class="card-head row">
+        <h2>📁 Your videos</h2>
+        <button id="refresh" class="btn-ghost small">↻ Refresh</button>
+      </div>
+      <div id="gallery" class="gallery"></div>
+    </section>
+  </main>
+
+  <footer class="foot">Made with AI Video Studio · render → upload → earn</footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

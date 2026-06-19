@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# Secrets & auth
+client_secrets.json
+youtube_token.json
+.env
+
+# Generated content (big binaries)
+output/
+assets/music/*
+!assets/music/.gitkeep
+topics/done.txt
+logs/
+
+# Runtime
+*.log
+*.pid
+
+# OS
+.DS_Store
+._*

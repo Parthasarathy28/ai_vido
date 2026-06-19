@@ -1,0 +1,40 @@
+# AI Video Studio configuration.
+# Every value has a free, sensible default — you only edit to change providers
+# or tune output. Delete a key to use its built-in default.
+
+script:
+  provider: auto          # auto | anthropic | template   (auto = Claude if ANTHROPIC_API_KEY set)
+  model: claude-opus-4-8
+  target_scenes: 8
+  words_per_scene: 35
+
+voice:
+  provider: piper         # piper (free, local) | elevenlabs (paid)
+  piper_voice: en_US-amy-medium
+  speaking_rate: 1.0
+
+image:
+  provider: auto          # auto | sd | pexels | card
+  sd_model: stabilityai/stable-diffusion-2-1-base
+  width: 768
+  height: 768
+  steps: 25
+  style_suffix: ", cinematic, highly detailed, dramatic lighting, 4k"
+
+caption:
+  enabled: true
+  whisper_model: base     # tiny | base | small
+  font_size: 42
+
+video:
+  width: 1920
+  height: 1080
+  fps: 30
+  ken_burns: true
+  music_volume: 0.12
+  crossfade: 0.5
+
+youtube:
+  enabled: false          # set true ONLY after you've reviewed output + done OAuth
+  client_secrets: client_secrets.json
+  token_file: youtube_token.json

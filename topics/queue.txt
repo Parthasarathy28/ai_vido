@@ -1,0 +1,4 @@
+# One story idea per line. Lines starting with # are ignored.
+The lighthouse keeper who discovered a city beneath the waves.
+A short history of how coffee conquered the world.
+The day an ordinary cat saved an entire village.
