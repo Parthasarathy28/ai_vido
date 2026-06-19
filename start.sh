@@ -14,7 +14,7 @@ LOG="server.log"
 if [ ! -d "$VENV" ]; then
   echo "No venv found — creating $VENV and installing requirements…"
   python3 -m venv "$VENV"
-  "$VENV/bin/pip" install -q -r requirements.txt
+  "$VENV/bin/pip" install -q -r requirements.txt -r requirements-pipeline.txt
 fi
 
 # 2. Already running?

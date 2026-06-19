@@ -1,37 +1,14 @@
-# ===== Core =====
+# Web-boot dependencies only. Kept lean so the FastAPI app fits inside
+# Vercel's 250MB serverless bundle. The pipeline's heavier deps
+# (anthropic, openai, piper-tts, faster-whisper, Pillow, requests,
+# google-api-python-client) live in requirements-pipeline.txt and are
+# lazy-imported only by the stage that needs them — so the dashboard
+# boots fine without them; video generation needs the full install.
+fastapi>=0.110
 pydantic>=2.5
 PyYAML>=6.0
-rich>=13.0          # nice CLI output
-typer>=0.12        # CLI framework
-
-# ===== Web UI / dashboard =====
-fastapi>=0.110
+python-dotenv>=1.0
+python-multipart>=0.0.9
+rich>=13.0
+typer>=0.12
 uvicorn[standard]>=0.27
-python-multipart>=0.0.9   # form posts
-python-dotenv>=1.0        # auto-load .env (API keys) for the server
-
-# ===== Script generation (LLM) =====
-# Default: Anthropic Claude (best quality). Optional/pluggable.
-anthropic>=0.40    # used only if ANTHROPIC_API_KEY is set; otherwise local-template fallback
-openai>=1.40       # used if OPENAI_API_KEY is set: gpt-4o-mini scripts + DALL-E 3 images
-
-# ===== Voice (free, local, CPU-friendly) =====
-piper-tts>=1.2     # free offline TTS
-
-# ===== Images (free, local) =====
-# diffusers/torch are heavy and optional. The pipeline auto-detects them.
-# Install with the GPU extra (see README) for Stable Diffusion:
-#   pip install torch diffusers transformers accelerate
-# If absent, the image step falls back to gradient/title cards or Pexels stock.
-Pillow>=10.0
-
-# ===== Subtitles / timing =====
-faster-whisper>=1.0   # word-level timestamps for captions (small model runs on CPU)
-
-# ===== Stock footage/images fallback (free) =====
-requests>=2.31
-
-# ===== YouTube upload =====
-google-api-python-client>=2.0
-google-auth-oauthlib>=1.2
-google-auth-httplib2>=0.2

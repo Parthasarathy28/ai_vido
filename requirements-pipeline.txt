@@ -1,0 +1,26 @@
+# Heavier pipeline dependencies — needed to actually generate videos
+# locally / on a self-hosted server. Not installed on Vercel because
+# they exceed the serverless bundle limit and aren't used by the
+# dashboard at boot. Install on top of requirements.txt:
+#   pip install -r requirements.txt -r requirements-pipeline.txt
+
+# Script generation (LLM)
+anthropic>=0.40
+openai>=1.40
+
+# Voice (free, local)
+piper-tts>=1.2
+
+# Images
+Pillow>=10.0
+
+# Captions
+faster-whisper>=1.0
+
+# Stock footage fallback
+requests>=2.31
+
+# YouTube upload
+google-api-python-client>=2.0
+google-auth-oauthlib>=1.2
+google-auth-httplib2>=0.2
